@@ -1,0 +1,14 @@
+.blog-post {
+    padding: 20px;
+    text-align: left;
+}
+
+.blog-post h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+.blog-post p {
+    font-size: 1.2em;
+    margin: 10px 0;
+}
