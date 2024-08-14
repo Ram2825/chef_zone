@@ -8,6 +8,9 @@ import UserProfile from './components/UserProfile';
 import Reviews from './components/Reviews';
 import Blogs from './components/Blogs';
 import BlogPost from './components/BlogPost';
+import LoginPage from './components/LoginPage';
+import SignupPage from './components/SignupPage';
+
 
 const AppRoutes = () => {
     return (
@@ -20,6 +23,8 @@ const AppRoutes = () => {
             <Route path="/reviews" element={<Reviews />} />
             <Route path="/blogs" element={<Blogs />} />
             <Route path="/blogs/:id" element={<BlogPost />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={<SignupPage />} />
         </Routes>
     );
 };

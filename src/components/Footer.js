@@ -3,7 +3,7 @@ import './Footer.css';
 const Footer = () => {
     return (
         <footer className="footer">
-            <p>&copy; {new Date().getFullYear()} Chef Zone. All rights reserved.</p>
+            <p className='footer-paragraph'>&copy; {new Date().getFullYear()} Chef Zone. All rights reserved.</p>
             <nav className="footer-nav">
                 <ul>
                     <li><a href="/terms">Terms of Service</a></li>

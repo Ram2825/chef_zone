@@ -1,14 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext';
 import './HomePage.css';
 
 const HomePage = () => {
+    const { user } = useContext(AuthContext); // Access user from context
+
     return (
         <div className="homepage">
             <header className="hero-section">
                 <h1>Welcome to Chef Zone</h1>
                 <p>Find certified chefs for home-cooked meals.</p>
-                <Link to="/chefs" className="cta-button">Find a Chef</Link>
+                {user ? (
+                    <Link to="/chefs" className="cta-button">Find a Chef</Link>
+                ) : (
+                    <p className="login-prompt">Please <Link to="/login">log in</Link> to find chefs.</p>
+                )}
             </header>
             <section className="how-it-works">
                 <h2>How It Works</h2>
