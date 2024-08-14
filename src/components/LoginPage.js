@@ -23,9 +23,10 @@ const LoginPage = () => {
             });
 
             if (response.data.status === 200) {
-                const { user_id, token } = response.data.results[0];
-                login({ user_id, token });
+                const { user_id, token, role } = response.data.results[0]; // Capture the role from the response
+                login({ user_id, token, role }); // Pass role to the login function
                 localStorage.setItem('token', token);
+                localStorage.setItem('role', role); // Store role in localStorage or wherever necessary
                 navigate('/');
             } else {
                 setError('Login failed. Please check your credentials and try again.');

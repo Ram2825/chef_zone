@@ -11,6 +11,10 @@ const SignupPage = () => {
     const [password, setPassword] = useState('');
     const [address, setAddress] = useState('');
     const [mobileNo, setMobileNo] = useState('');
+    const [role, setRole] = useState('customer'); // Default to 'customer'
+    const [bio, setBio] = useState(''); // Additional field for chefs
+    const [specialty, setSpecialty] = useState(''); // Additional field for chefs
+    const [experienceYears, setExperienceYears] = useState(''); // Additional field for chefs
     const [error, setError] = useState(null);
     const navigate = useNavigate();
 
@@ -24,7 +28,11 @@ const SignupPage = () => {
             email,
             password,
             address,
-            mobileNo
+            mobileNo,
+            role,
+            bio, // Include chef-specific fields if role is chef
+            specialty,
+            experienceYears
         });
 
         const config = {
@@ -38,9 +46,9 @@ const SignupPage = () => {
 
         try {
             const response = await axios.request(config);
-            if (response.data.status === 200) {
+            if (response.data.status === 201) {
                 console.log(response.data);
-                navigate('/login'); // Redirect to login page or another page
+                navigate('/login');
             } else {
                 setError('Signup failed. Please check your details and try again.');
             }
@@ -128,6 +136,50 @@ const SignupPage = () => {
                             />
                         </div>
                     </div>
+                    <div className="auth-field-group">
+                        <div className="auth-field">
+                            <label>Role:</label>
+                            <select
+                                value={role}
+                                onChange={(e) => setRole(e.target.value)}
+                                required
+                            >
+                                <option value="customer">Customer</option>
+                                <option value="chef">Chef</option>
+                            </select>
+                        </div>
+                    </div>
+                    {role === 'chef' && (
+                        <div>
+                            <div className="auth-field-group">
+                                <div className="auth-field">
+                                    <label>Bio:</label>
+                                    <textarea
+                                        value={bio}
+                                        onChange={(e) => setBio(e.target.value)}
+                                    />
+                                </div>
+                                <div className="auth-field">
+                                    <label>Specialty:</label>
+                                    <input
+                                        type="text"
+                                        value={specialty}
+                                        onChange={(e) => setSpecialty(e.target.value)}
+                                    />
+                                </div>
+                            </div>
+                            <div className="auth-field-group">
+                                <div className="auth-field">
+                                    <label>Years of Experience:</label>
+                                    <input
+                                        type="number"
+                                        value={experienceYears}
+                                        onChange={(e) => setExperienceYears(e.target.value)}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    )}
                     {error && <p className="error-message">{error}</p>}
                     <button type="submit">Sign Up</button>
                     <p>Already have an account? <Link to="/login">Login here</Link></p>

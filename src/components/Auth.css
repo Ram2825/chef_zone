@@ -93,3 +93,52 @@ a:hover {
     font-size: 1em;
     margin-top: 10px;
 }
+
+/* Auth.css */
+
+/* Style the label and select container */
+.auth-field {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Style the label */
+.auth-field label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+/* Style the select dropdown */
+.auth-field select {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    font-size: 1em;
+    color: #333;
+    appearance: none; /* Removes default arrow */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+/* Add a background arrow icon to the select dropdown */
+.auth-field select {
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iOCIgdmlld0JveD0iMCAwIDE2IDgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTEgM2wxLjQtMmw1LjYgNS42IDUuNi01LjYgMS40IDJsLTcuMCA3TDIgM3oiIGZpbGw9IiMzMzMiLz48L3N2Zz4=');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 10px;
+    padding-right: 30px;
+}
+
+/* Hover effect for the select dropdown */
+.auth-field select:hover {
+    border-color: #aaa;
+}
+
+/* Focus effect for the select dropdown */
+.auth-field select:focus {
+    border-color: #f8b400;
+    outline: none;
+    box-shadow: 0 0 5px rgba(248, 180, 0, 0.5);
+}
