@@ -23,11 +23,21 @@ const LoginPage = () => {
             });
 
             if (response.data.status === 200) {
-                const { user_id, token, role } = response.data.results[0]; // Capture the role from the response
-                login({ user_id, token, role }); // Pass role to the login function
+                const { token } = response.data;
+                const { user_id, role } = response.data.results[0];
+                
+                // Store login information
+                login({ user_id, token, role }); 
                 localStorage.setItem('token', token);
-                localStorage.setItem('role', role); // Store role in localStorage or wherever necessary
-                navigate('/');
+                localStorage.setItem('role', role);
+                localStorage.setItem('user_id', user_id);
+
+                // Navigate based on role
+                if (role === 'chef') {
+                    navigate('/dashboard'); // Redirect to dashboard if the user is a chef
+                } else {
+                    navigate('/'); // Redirect to home page if the user is not a chef
+                }
             } else {
                 setError('Login failed. Please check your credentials and try again.');
             }

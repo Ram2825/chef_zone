@@ -13,6 +13,7 @@ const ChefList = () => {
     const [error, setError] = useState(null);
     const [bookingDate, setBookingDate] = useState('');
     const [bookingTime, setBookingTime] = useState('');
+    const [additionalNotes, setAdditionalNotes] = useState('');
 
     useEffect(() => {
         axios.get('http://localhost:8200/chef_zone/autenticate/chefs')
@@ -64,18 +65,43 @@ const ChefList = () => {
             });
     };
 
-    const handleBookingSubmit = () => {
+    const handleBookingSubmit = async () => {
         if (!bookingDate || !bookingTime) {
             alert('Please fill in both date and time.');
             return;
         }
-
-        // Placeholder for booking submission, e.g., API call
-        alert(`Booking confirmed for ${selectedChef.first_name} ${selectedChef.last_name} on ${bookingDate} at ${bookingTime}`);
-        setShowBookingModal(false);
-        setBookingDate('');
-        setBookingTime('');
+    
+        const user_id = localStorage.getItem('user_id');
+        
+        if (!user_id) {
+            alert('User not logged in. Please log in to make a booking.');
+            return;
+        }
+    
+        try {
+            const response = await axios.post('http://localhost:8200/bookings', {
+                user_id,
+                chef_id: selectedChef.user_id,
+                booking_date: bookingDate,
+                booking_time: bookingTime,
+                additional_notes: additionalNotes // Include additional notes in the request
+            });
+    
+            if (response.data.status === 200) {
+                alert(`Booking confirmed for ${selectedChef.first_name} ${selectedChef.last_name} on ${bookingDate} at ${bookingTime}`);
+                setShowBookingModal(false);
+                setBookingDate('');
+                setBookingTime('');
+                setAdditionalNotes(''); // Clear the notes field
+            } else {
+                alert('Failed to book the chef. Please try again.');
+            }
+        } catch (error) {
+            console.error('Error booking the chef:', error);
+            alert('An error occurred while booking. Please try again.');
+        }
     };
+    
 
     const closeModal = () => {
         setShowBookingModal(false);
@@ -133,6 +159,14 @@ const ChefList = () => {
                                     required
                                 />
                             </label>
+                            <label>
+                                Additional Notes:
+                                <textarea
+                                    value={additionalNotes}
+                                    onChange={(e) => setAdditionalNotes(e.target.value)}
+                                    placeholder="Enter any additional requests or information"
+                                />
+                                </label>
                             <div className="modal-buttons">
                                 <button type="submit" className="confirm-button">Confirm</button>
                                 <button type="button" onClick={closeModal} className="close-button">Close</button>

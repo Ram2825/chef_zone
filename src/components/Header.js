@@ -1,10 +1,20 @@
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
-import { AuthContext } from '../context/AuthContext';
+import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import './Header.css';
 
 const Header = () => {
-    const { user, logout } = useContext(AuthContext);
+    const navigate = useNavigate();
+    const token = localStorage.getItem('token');
+    const userId = localStorage.getItem('user_id');
+    const userRole = localStorage.getItem('user_role'); // Assuming role is also stored in localStorage
+
+    const isLoggedIn = token && userId;
+    const isChef = userRole === 'chef';
+
+    const handleLogout = () => {
+        localStorage.clear();
+        navigate('/login');
+    };
 
     return (
         <header className="header">
@@ -13,26 +23,26 @@ const Header = () => {
             </div>
             <nav className="nav">
                 <ul>
-                    {/* Conditionally render the "Home" link */}
-                    {user && user.role !== 'chef' && (
+                    {isLoggedIn && !isChef && (
                         <li><Link to="/">Home</Link></li>
                     )}
 
-                    {user ? (
-                        user.role === 'chef' ? (
+                    {isLoggedIn ? (
+                        isChef ? (
                             <>
                                 <li><Link to="/dashboard">Dashboard</Link></li>
                                 <li><Link to="/create-recipe">Create Recipe</Link></li>
                                 <li><Link to="/manage-bookings">Manage Bookings</Link></li>
-                                <li><button onClick={logout} className="logout-button">Logout</button></li>
+                                <li><button onClick={handleLogout} className="logout-button">Logout</button></li>
                             </>
                         ) : (
                             <>
                                 <li><Link to="/chefs">Chefs</Link></li>
                                 <li><Link to="/blogs">Blogs</Link></li>
+                                <li><Link to="/bookings">Bookings</Link></li>
                                 <li><Link to="/reviews">Reviews</Link></li>
                                 <li><Link to="/profile">Profile</Link></li>
-                                <li><button onClick={logout} className="logout-button">Logout</button></li>
+                                <li><button onClick={handleLogout} className="logout-button">Logout</button></li>
                             </>
                         )
                     ) : (

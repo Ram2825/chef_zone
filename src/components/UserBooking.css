@@ -1,0 +1,23 @@
+.user-booking {
+    padding: 20px;
+    text-align: center;
+}
+
+.booking-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.booking-item {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    padding: 15px;
+    text-align: left;
+}
+
+.error-message {
+    color: red;
+    font-weight: bold;
+}
