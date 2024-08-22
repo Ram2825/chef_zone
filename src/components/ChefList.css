@@ -1,4 +1,4 @@
-/* General styling for chef list and cards */
+
 .chef-list {
     padding: 20px;
     text-align: center;
@@ -12,6 +12,8 @@
 }
 
 .chef-card {
+    background-color: #e0f7fa;
+    /* color: yellow; */
     border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -78,22 +80,21 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 1000; /* Ensure it’s above other content */
+    z-index: 1000;
 }
 
-/* General Modal Content Styling */
+
 .modal-content {
     background: white;
     border-radius: 8px;
     padding: 20px;
     width: 100%;
-    max-width: 500px; /* Adjust based on your design needs */
+    max-width: 500px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     position: relative;
     overflow: hidden;
 }
 
-/* Close and Confirm Buttons */
 .close-button,
 .confirm-button {
     background-color: #007bff;
@@ -125,7 +126,7 @@
     padding: 10px;
     border-radius: 5px;
     border: 1px solid #ddd;
-    box-sizing: border-box; /* Ensure padding and borders are included in width */
+    box-sizing: border-box;
 }
 
 /* Add Review Button */
@@ -166,7 +167,7 @@
     margin-bottom: 10px;
     border-radius: 5px;
     border: 1px solid #ddd;
-    box-sizing: border-box; /* Ensure padding and borders are included in width */
+    box-sizing: border-box;
 }
 
 .booking-modal label {
@@ -182,7 +183,7 @@
     padding: 10px;
     border-radius: 5px;
     border: 1px solid #ddd;
-    box-sizing: border-box; /* Ensure padding and borders are included in width */
+    box-sizing: border-box;
 }
 
 /* Modal Buttons Alignment */

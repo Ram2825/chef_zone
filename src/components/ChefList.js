@@ -10,6 +10,7 @@ const ChefList = () => {
     const [showAddReviewModal, setShowAddReviewModal] = useState(false);
     const [reviews, setReviews] = useState([]);
     const [newReview, setNewReview] = useState('');
+    const [rating, setRating] = useState(0); // State for rating
     const [error, setError] = useState(null);
     const [bookingDate, setBookingDate] = useState('');
     const [bookingTime, setBookingTime] = useState('');
@@ -52,17 +53,32 @@ const ChefList = () => {
     };
 
     const handleAddReview = () => {
-        if (newReview.trim() === '') return;
+        const user_id = localStorage.getItem('user_id'); // Get user_id from localStorage
 
-        axios.post(`http://localhost:8200/chef_zone/reviews/${selectedChef.user_id}`, { review: newReview })
-            .then(response => {
-                setReviews([...reviews, response.data.newReview]);
-                setNewReview('');
-                setShowAddReviewModal(false);
-            })
-            .catch(error => {
-                console.error('There was an error adding the review!', error);
-            });
+        if (!user_id) {
+            alert('You must be logged in to submit a review.');
+            return;
+        }
+
+        if (!rating || newReview.trim() === '') {
+            alert('Please fill in all fields.');
+            return;
+        }
+
+        axios.post(`http://localhost:8200/chef_zone/reviews/${selectedChef.user_id}`, {
+            user_id,
+            rating,
+            review_text: newReview
+        })
+        .then(response => {
+            setReviews([...reviews, response.data.newReview]);
+            setNewReview('');
+            setRating(0);
+            setShowAddReviewModal(false);
+        })
+        .catch(error => {
+            console.error('There was an error adding the review!', error);
+        });
     };
 
     const handleBookingSubmit = async () => {
@@ -70,14 +86,14 @@ const ChefList = () => {
             alert('Please fill in both date and time.');
             return;
         }
-    
+
         const user_id = localStorage.getItem('user_id');
-        
+
         if (!user_id) {
             alert('User not logged in. Please log in to make a booking.');
             return;
         }
-    
+
         try {
             const response = await axios.post('http://localhost:8200/bookings', {
                 user_id,
@@ -86,7 +102,7 @@ const ChefList = () => {
                 booking_time: bookingTime,
                 additional_notes: additionalNotes // Include additional notes in the request
             });
-    
+
             if (response.data.status === 200) {
                 alert(`Booking confirmed for ${selectedChef.first_name} ${selectedChef.last_name} on ${bookingDate} at ${bookingTime}`);
                 setShowBookingModal(false);
@@ -101,7 +117,6 @@ const ChefList = () => {
             alert('An error occurred while booking. Please try again.');
         }
     };
-    
 
     const closeModal = () => {
         setShowBookingModal(false);
@@ -166,7 +181,7 @@ const ChefList = () => {
                                     onChange={(e) => setAdditionalNotes(e.target.value)}
                                     placeholder="Enter any additional requests or information"
                                 />
-                                </label>
+                            </label>
                             <div className="modal-buttons">
                                 <button type="submit" className="confirm-button">Confirm</button>
                                 <button type="button" onClick={closeModal} className="close-button">Close</button>
@@ -184,7 +199,12 @@ const ChefList = () => {
                         <ul className="reviews-list">
                             {reviews.length > 0 ? (
                                 reviews.map((review, index) => (
-                                    <li key={index} className="review-item">{review}</li>
+                                    <li key={index} className="review-item">
+                                        <p><strong>{review.first_name} {review.last_name}:</strong></p>
+                                        <p>Rating: {review.rating}</p>
+                                        <p>{review.review_text}</p>
+                                        <p><em>Reviewed on: {new Date(review.created_at).toLocaleDateString()}</em></p>
+                                    </li>
                                 ))
                             ) : (
                                 <p>No reviews yet.</p>
@@ -203,11 +223,26 @@ const ChefList = () => {
                 <div className="modal-overlay">
                     <div className="modal-content add-review-modal">
                         <h2>Add a Review</h2>
-                        <textarea
-                            value={newReview}
-                            onChange={(e) => setNewReview(e.target.value)}
-                            placeholder="Write your review here..."
-                        />
+                        <label>
+                            Rating:
+                            <select value={rating} onChange={(e) => setRating(e.target.value)} required>
+                                <option value={0}>Select rating</option>
+                                <option value={1}>1 - Poor</option>
+                                <option value={2}>2 - Fair</option>
+                                <option value={3}>3 - Good</option>
+                                <option value={4}>4 - Very Good</option>
+                                <option value={5}>5 - Excellent</option>
+                            </select>
+                        </label>
+                        <label>
+                            Review:
+                            <textarea
+                                value={newReview}
+                                onChange={(e) => setNewReview(e.target.value)}
+                                placeholder="Write your review here..."
+                                required
+                            />
+                        </label>
                         <div className="modal-buttons">
                             <button onClick={handleAddReview} className="confirm-button">Submit</button>
                             <button onClick={closeModal} className="close-button">Cancel</button>

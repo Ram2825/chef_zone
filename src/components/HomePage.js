@@ -22,15 +22,15 @@ const HomePage = () => {
                 <h2>How It Works</h2>
                 <div className="cards-container">
                     <div className="card">
-                        <h3>1. Search for Chefs</h3>
+                        <h3 style={{color:"#f8b400"}}>1. Search for Chefs</h3>
                         <p>Search for chefs based on your preferences and dietary requirements.</p>
                     </div>
                     <div className="card">
-                        <h3>2. Read Reviews</h3>
+                        <h3 style={{color:"#f8b400"}}>2. Read Reviews</h3>
                         <p>Read reviews and ratings to select your preferred chef.</p>
                     </div>
                     <div className="card">
-                        <h3>3. Book a Chef</h3>
+                        <h3 style={{color:"#f8b400"}}>3. Book a Chef</h3>
                         <p>Book a chef and enjoy a delicious home-cooked meal!</p>
                     </div>
                 </div>

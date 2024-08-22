@@ -4,13 +4,13 @@ import HomePage from './components/HomePage';
 import ChefList from './components/ChefList';
 import ChefProfile from './components/ChefProfile';
 import UserProfile from './components/UserProfile';
-import Reviews from './components/Reviews';
-import Blogs from './components/Blogs';
 import BlogPost from './components/BlogPost';
 import LoginPage from './components/LoginPage';
 import SignupPage from './components/SignupPage';
 import ChefBooking from './components/ChefBooking';
 import UserBooking from './components/UserBooking';
+import BlogList from './components/BlogList';
+import Dashboard from './components/Dashboard';
 
 
 const AppRoutes = () => {
@@ -20,13 +20,14 @@ const AppRoutes = () => {
             <Route path="/chefs" element={<ChefList />} />
             <Route path="/chefs/:id" element={<ChefProfile />} />
             <Route path="/profile" element={<UserProfile />} />
-            <Route path="/reviews" element={<Reviews />} />
-            <Route path="/blogs" element={<Blogs />} />
-            <Route path="/blogs/:id" element={<BlogPost />} />
+            <Route path="/chef-profile" element={<ChefProfile />} />
+            <Route path="/blog/:id" element={<BlogPost />} />
+            <Route path="/blogs" element={<BlogList />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignupPage />} />
             <Route path="/bookings" element={<UserBooking/>} />
             <Route path="/manage-bookings" element={<ChefBooking/>} />
+            <Route path="/dashboard" element={<Dashboard/>} />
         </Routes>
     );
 };
