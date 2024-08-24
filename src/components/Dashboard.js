@@ -29,7 +29,8 @@ const Dashboard = () => {
                     if (response.data.status === 200) {
                         setBookings(response.data.results);
                         const counts = response.data.results.reduce((acc, booking) => {
-                            acc[booking.status.toLowerCase()] = (acc[booking.status.toLowerCase()] || 0) + 1;
+                            const status = booking.status ? booking.status.toLowerCase() : 'pending';
+                            acc[status] = (acc[status] || 0) + 1;
                             return acc;
                         }, { pending: 0, approved: 0, declined: 0 });
                         setStatusCounts(counts);
@@ -61,7 +62,8 @@ const Dashboard = () => {
                 );
                 setStatusCounts((prevCounts) => {
                     const updatedCounts = { ...prevCounts };
-                    updatedCounts[bookings.status.toLowerCase()] -= 1;
+                    const currentStatus = bookings.find(b => b.booking_id === bookingId)?.status?.toLowerCase() || 'pending';
+                    updatedCounts[currentStatus] -= 1;
                     updatedCounts[newStatus.toLowerCase()] += 1;
                     return updatedCounts;
                 });
