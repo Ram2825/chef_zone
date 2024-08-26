@@ -40,15 +40,15 @@ const CreateBlog = () => {
         formData.append('cooking_time', cookingTime);
         formData.append('servings', servings);
         formData.append('difficulty', difficulty);
-        formData.append('image', imageFile); // Append the file
+        formData.append('image', imageFile);
 
         try {
             await axios.post('http://localhost:8200/food_blog', formData, {
                 headers: {
-                    'Content-Type': 'multipart/form-data' // Set content type for file upload
+                    'Content-Type': 'multipart/form-data'
                 }
             });
-            navigate('/food_blog'); // Redirect after successful creation
+            navigate('/foodblogs');
         } catch (err) {
             console.error('Error creating blog post:', err);
             setError('Failed to create blog post.');
