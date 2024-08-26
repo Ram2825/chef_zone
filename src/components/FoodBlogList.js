@@ -8,8 +8,8 @@ const FoodBlogList = () => {
     const [role, setRole] = useState(null);
     const navigate = useNavigate();
     const baseURL = 'http://localhost:8200';
+
     useEffect(() => {
-        // Fetch blogs
         const fetchBlogs = async () => {
             try {
                 const response = await axios.get('http://localhost:8200/food_blog');
@@ -39,23 +39,25 @@ const FoodBlogList = () => {
                     Create Blog
                 </button>
             )}
-            {blogs.length > 0 ? (
-                blogs.map(blog => (
-                    <div key={blog.post_id} className="blog-post-card">
-                        {blog.image_url && (
-                            <img src={`${baseURL}${blog.image_url}`} alt={blog.title} />
-                        )}
-                        <h2>{blog.title}</h2>
-                        <div className="author-date">
-                            <span>By {blog.author_name}</span> | <span>{new Date(blog.created_at).toLocaleDateString()}</span>
+            <div className="blogs-grid">
+                {blogs.length > 0 ? (
+                    blogs.map(blog => (
+                        <div key={blog.post_id} className="blog-post-card">
+                            {blog.image_url && (
+                                <img src={`${baseURL}${blog.image_url}`} alt={blog.title} />
+                            )}
+                            <h2>{blog.title}</h2>
+                            <div className="author-date">
+                                <span>By {blog.author_name}</span> | <span>{new Date(blog.created_at).toLocaleDateString()}</span>
+                            </div>
+                            <p>{blog.content.substring(0, 200)}...</p>
+                            <a href={`/food_blog/${blog.post_id}`} className="read-more">Read More</a>
                         </div>
-                        <p>{blog.content.substring(0, 200)}...</p>
-                        <a href={`/food_blog/${blog.post_id}`} className="read-more">Read More</a>
-                    </div>
-                ))
-            ) : (
-                <p>No blog posts available.</p>
-            )}
+                    ))
+                ) : (
+                    <p>No blog posts available.</p>
+                )}
+            </div>
         </div>
     );
 };
