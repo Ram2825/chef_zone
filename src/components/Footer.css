@@ -1,8 +1,11 @@
+/* Footer.css */
 .footer {
     padding: 20px;
     background-color: #333;
     color: #fff;
     text-align: center;
+    position: relative;
+    margin-top: 20px;
 }
 
 .footer-nav ul {
@@ -24,6 +27,7 @@
     text-decoration: underline;
 }
 
-.footer-paragraph{
+.footer-paragraph {
     color: white;
+    margin: 0;
 }

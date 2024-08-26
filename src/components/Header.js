@@ -31,16 +31,15 @@ const Header = () => {
                         isChef ? (
                             <>
                                 <li><Link to="/dashboard">Dashboard</Link></li>
-                                {/* <li><Link to="/create-recipe">Create Recipe</Link></li> */}
-                                {/* <li><Link to="/manage-bookings">Manage Bookings</Link></li> */}
-                                {/* <li><Link to="/manage-bookings">Manage Bookings</Link></li> */}
+                                <li><Link to="/foodblogs">Create Blog</Link></li>
                                 <li><Link to="/chef-profile">Profile</Link></li>
                                 <li><button onClick={handleLogout} className="logout-button">Logout</button></li>
                             </>
                         ) : (
                             <>
                                 <li><Link to="/chefs">Chefs</Link></li>
-                                <li><Link to="/blogs">Blogs</Link></li>
+                                {/* <li><Link to="/blogs">Blogs</Link></li> */}
+                                <li><Link to="/foodblogs">Blogs</Link></li>
                                 <li><Link to="/bookings">Bookings</Link></li>
                                 <li><Link to="/profile">Profile</Link></li>
                                 <li><button onClick={handleLogout} className="logout-button">Logout</button></li>
